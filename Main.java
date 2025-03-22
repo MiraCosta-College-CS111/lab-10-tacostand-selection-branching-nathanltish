@@ -87,13 +87,13 @@ public class Main
 	public static void printConfirmation(int numTacos)
 	{
 		System.out.println("Here you go, buen provecho!");
-
-		// Prints extra emojis to match # of Tacos ordered
-		StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < numTacos; i++) 
+		
+		// Prints extra emojis to match # of tacos
+		String tacos = "";
+		for (int i = 0; i < numTacos; i++) 
 		{
-            sb.append("🌮");
-        }
-        System.out.println(sb.toString());
+			tacos += "🌮";
+		}
+		System.out.println(tacos); // ensures there is a new line to seperate "cart closing" text
 	}
 }
