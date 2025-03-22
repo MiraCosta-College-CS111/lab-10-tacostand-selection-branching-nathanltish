@@ -2,6 +2,13 @@ public class TacoStand
 {
     /* CONSTANT VARIABLES */
 	public static final String BAR = "----------------------------------------";
+	// public static final (FOOD_PRICES) maybe?
+	public static final double ASADA_PRICE = 2.50;
+    public static final double POLLO_PRICE = 1.75;
+    public static final double LENGUA_PRICE = 3.00;
+    public static final double ULTIMATE_PRICE = 18.00;
+    public static final double SUPPLY_COST_PER_TACO = 0.75; // the cost per individual taco
+
 
 	/* STATIC VARIABLES */
 	private static int numAsada = 0, numPollo = 0, numLengua = 0, numUltimate = 0;
@@ -71,17 +78,25 @@ public class TacoStand
 	 */
 	public static boolean orderSupplies(double budget)
 	{
-		//tacos cost 75 cents each in supplies, keeping it simple
-	    int tacosEach = (int)(Math.round(budget / 0.75 / 4));
+		// Can only order if budget is less than or equal to totalFunds
+		if (budget <= totalFunds) 
+		{
+			// tacos cost 75 cents each in supplies, keeping it simple
+			int tacosEach = ((int) Math.round(budget / SUPPLY_COST_PER_TACO / 4));
 
-	    TacoStand.totalFunds -= budget;
+			// Subtracts from total funds
+			TacoStand.totalFunds -= budget;
 
-	    TacoStand.numAsada += tacosEach;
-	    TacoStand.numPollo += tacosEach;
-	    TacoStand.numLengua += tacosEach;
-	    TacoStand.numUltimate += tacosEach;
+			TacoStand.numAsada += tacosEach;
+			TacoStand.numPollo += tacosEach;
+			TacoStand.numLengua += tacosEach;
+			TacoStand.numUltimate += tacosEach;
 
-		return true;  //TODO: this is stubbed, replace this line with your actual code!
+			return true; 
+		} else 
+		  {
+		    return false; // Not enough totalFunds to order supplies
+		  }
 	}
 
 	/**
@@ -93,7 +108,32 @@ public class TacoStand
 	 */
 	public static void updateTotalFunds(int tacoOption, int numTacos)
 	{
-		//TODO: this is stubbed, replace this line with your actual code!
+		// Program will only run(process a sale) if there are enough tacos
+		if(!areTacosAvailable(tacoOption, numTacos)) {
+			return;
+		}
+
+		switch(tacoOption) {
+            case 1: // Carne Asada Taco option
+                totalFunds += (ASADA_PRICE * numTacos);
+                numAsada -= numTacos;
+                break;
+            case 2: // Pollo Asado option
+                totalFunds += (POLLO_PRICE * numTacos);
+                numPollo -= numTacos;
+                break;
+            case 3: // Lengua option
+                totalFunds += (LENGUA_PRICE * numTacos);
+                numLengua -= numTacos;
+                break;
+            case 4: // Ultimate Taco option
+                totalFunds += (ULTIMATE_PRICE * numTacos);
+                numUltimate -= numTacos;
+                break;
+            default:
+                // Should never happen if validated up front
+                break;
+        }
 	}
 	
 	
@@ -107,6 +147,15 @@ public class TacoStand
 	 */
 	public static boolean areTacosAvailable(int tacoOption, int numTacos)
 	{
-		return false; //TODO: this is stubbed, replace this line with your actual code!
+		switch(tacoOption) 
+		{
+        	case 1: return (numAsada >= numTacos);
+            case 2: return (numPollo >= numTacos);
+            case 3: return (numLengua >= numTacos);
+            case 4: return (numUltimate >= numTacos);
+            default:
+
+			return false; // x # of tacos are not available
+		}
 	}
 }

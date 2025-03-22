@@ -1,7 +1,7 @@
+// PARTNER NAME: Nathan Tshishimbi
 // PARTNER NAME:
-// PARTNER NAME:
-// CS111 SECTION #:
-// DATE:
+// CS111 SECTION #: 1270
+// DATE: 03/21/25
 
 public class Main
 {
@@ -56,7 +56,7 @@ public class Main
 	 * Prints menu and prompts user for input for kind of taco and number in order. If tacos are available,
 	 * will update total funds and confirm order with user, otherwise error message given
 	 */
-	public static void takeOrder() //TODO: upgrade per documentation
+	public static void takeOrder()
 	{
 		//DECLARATION + INITIALIZATION SECTION
 		int option, numTacosOrdered;
@@ -66,9 +66,17 @@ public class Main
 		option = UtilityBelt.readInt("Enter choice> ", 1, 4);
 		numTacosOrdered = UtilityBelt.readInt("Enter number of tacos you want> ", 1, 50);
 
-		//CALCULATION + OUTPUT SECTION
-		TacoStand.updateTotalFunds(option, numTacosOrdered);
-		Main.printConfirmation(numTacosOrdered);
+		// Checks for taco ability first
+		if(TacoStand.areTacosAvailable(option, numTacosOrdered)) 
+		{
+			//CALCULATION + OUTPUT SECTION
+			TacoStand.updateTotalFunds(option, numTacosOrdered);
+			Main.printConfirmation(numTacosOrdered);
+		} else 
+		  {
+			// Error message if not enough tacos available
+			System.out.println("We don't have that many tacos, sorry! Try again :(");
+		  }
 	}
 
 	/**
@@ -76,9 +84,16 @@ public class Main
 	 * 
 	 * @param numTacos
 	 */
-	public static void printConfirmation(int numTacos) //TODO: upgrade per documentation
+	public static void printConfirmation(int numTacos)
 	{
 		System.out.println("Here you go, buen provecho!");
-		System.out.println("🌮");
+
+		// Prints extra emojis to match # of Tacos ordered
+		StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < numTacos; i++) 
+		{
+            sb.append("🌮");
+        }
+        System.out.println(sb.toString());
 	}
 }
