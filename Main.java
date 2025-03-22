@@ -94,6 +94,7 @@ public class Main
 		{
 			tacos += "🌮";
 		}
-		System.out.println(tacos); // ensures there is a new line to seperate "cart closing" text
+		System.out.println(tacos); 
+		System.out.println();// ensures there is a new line to seperate "cart closing" text
 	}
 }
